@@ -1,15 +1,18 @@
 import { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import { UserDetails } from "./components/UserDetails";
-import { Counter } from "./components/Counter";
+import Counter from "./components/counter";
+import { Example } from "./components/example";
+import { Todo } from "./components/todo";
 
 function App() {
+  const [showCounter, setShowCounter] = useState(false);
   return (
     <div className="App">
-      <UserDetails name="Rahul" add="delhi" age="25" isMarried={false} />
-      <Counter />
-      <Counter />
+      {/* {showCounter && <Counter />}
+      <br />
+      <button onClick={() => setShowCounter(!showCounter)}>SHOW</button>
+      <Example /> */}
+      <Todo />
     </div>
   );
 }

@@ -1,38 +1,34 @@
-import { useState } from "react";
-import "./userdetails.css";
+import { useEffect, useState } from "react";
 
-export const Counter = () => {
-  const [counter, setCounter] = useState(0);
+export default function Counter() {
+  const [count, setCount] = useState(10);
 
-  // const [Age,setAge] = useState(0)
-  // const [email,setemail] = useState("")
-  const clickfun = (val) => {
-    setCounter(counter + val);
-  };
-  if (counter < 10) {
-    return (
-      <div>
-        <h3>Counter:{counter}</h3>
-        <p className={counter & (2 === 0) ? "red" : "green"}>
-          Counter is:{counter % 2 === 0 ? "Even" : "Odd"}
-        </p>
-        <button
-          onClick={() => {
-            clickfun(1);
-          }}
-        >
-          Add 1
-        </button>
-        <button
-          onClick={() => {
-            clickfun(-1);
-          }}
-        >
-          Dec 1
-        </button>
-      </div>
-    );
-  } else {
-    return <h1>You Have reached max counter values</h1>;
-  }
-};
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCount((prev) => {
+        if (prev === 0) {
+          clearInterval(id);
+          return prev;
+        }
+        console.log("inside useEffcet");
+        return prev - 1;
+      });
+    }, 1000);
+    return () => {
+      console.log("Cleaning up any set inetervals");
+      clearInterval(id);
+    };
+  }, []);
+  //useEffect has empty dependancy
+  //it will get called when the compents gets unmounted
+
+  //if it has a dependency, count
+  //it will get called, eveytime count gets updated,
+  //but before the useEffect callback is triggered
+
+  return (
+    <>
+      <h1>Counter: {count}</h1>
+    </>
+  );
+}
